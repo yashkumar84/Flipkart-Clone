@@ -154,6 +154,98 @@ main{
 }
 
 
+.carousel-container{
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-wrapper{
+    display: flex;
+    transition: all 0.5s ease-in-out;
+}
+
+.carousel-slide{
+    width: 100%;
+    height: 280px;
+    flex-shrink: 0;
+}
+
+.carousel-slide img{
+    object-fit: cover;
+}
+
+.carousel-btn{
+    position: absolute;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    top: 50%;
+    width: 47px;
+    height: 104px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    z-index: 10;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+}
+
+.carousel-btn:hover{
+    background-color: rgba(255, 255, 255, 1);
+}
+
+
+
+.prev{
+    left: 0;
+}
+
+.next{
+    right: 0;
+    
+}
+
+.dot-container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 16px;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+
+}
+
+
+.carousel-dot{
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+    padding: 0;
+
+}
+
+.carousel-dot.active {
+    background-color: #fff;
+}
+
+
+
+
+
+
 
 
 
