@@ -3,6 +3,7 @@ let prevButton = document.getElementById("prevBtn");
 let nextButton = document.getElementById("nextBtn");
 const carouselSlides = document.querySelectorAll(".carousel-slide");
 const dotContainer = document.querySelector(".dot-container");
+
 let currentIndex = 0;
 let totalSlides = carouselSlides.length;
 let currentInterval;
@@ -19,7 +20,7 @@ carouselWrapper.style.transform = `translateX(-100%)`;
 carouselSlides.forEach((ele, index) => {
   const dot = document.createElement("button");
   dot.classList = "carousel-dot";
-  if (index == 0) {
+  if (index === 0) {
     dot.classList.add("active");
   }
   dot.addEventListener("click", () => goToSlide(index));
@@ -30,31 +31,28 @@ function updateCarousel(transition = true) {
   if (transition) {
     carouselWrapper.style.transition = "transform 0.5s ease-in-out";
   } else {
-    console.log("Here None");
     carouselWrapper.style.transition = "none";
   }
-  console.log(transition);
-  console.log(currentIndex);
-  handleLastTransition();
-  carouselWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  carouselWrapper.style.transform = `translateX(-${(currentIndex + 1) * 100}%)`;
+
   const dots = document.querySelectorAll(".carousel-dot");
-  console.log(dots);
+  const dotIndex = ((currentIndex % totalSlides) + totalSlides) % totalSlides;
   dots.forEach((dot, index) => {
-    dot.classList.toggle("active", index === currentIndex);
+    dot.classList.toggle("active", index === dotIndex);
   });
 }
 
 function handleLastTransition() {
+  isTransitioning = false;
+
   if (currentIndex >= totalSlides) {
     currentIndex = 0;
     updateCarousel(false);
-  }
-  if (currentIndex < 0) {
+  } else if (currentIndex < 0) {
     currentIndex = totalSlides - 1;
     updateCarousel(false);
   }
-  console.log("Here in the FUnction ", isTransitioning);
-  isTransitioning = false;
 }
 
 function goToSlide(index) {
@@ -65,11 +63,9 @@ function goToSlide(index) {
 }
 
 function nextSlide() {
-  console.log(isTransitioning);
   if (isTransitioning) return;
   isTransitioning = true;
   currentIndex++;
-  console.log(currentIndex);
   updateCarousel();
 }
 
@@ -83,7 +79,6 @@ function prevSlide() {
 function autoPlay() {
   currentInterval = setInterval(nextSlide, 3000);
 }
-autoPlay();
 
 function stopAutoPlay() {
   clearInterval(currentInterval);
@@ -98,10 +93,16 @@ prevButton.addEventListener("click", () => {
   prevSlide();
   resetAutoPlay();
 });
+
 nextButton.addEventListener("click", () => {
   nextSlide();
   resetAutoPlay();
 });
-// carouselWrapper.addEventListener("transitionend", handleLastTransition);
+
+carouselWrapper.addEventListener("transitionend", handleLastTransition);
+
 carouselWrapper.addEventListener("mouseenter", stopAutoPlay);
 carouselWrapper.addEventListener("mouseleave", autoPlay);
+
+// Start autoplay
+autoPlay();
