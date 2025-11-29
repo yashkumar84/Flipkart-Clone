@@ -123,7 +123,7 @@ justify-content: center;
     margin: 10px ;  
     display: grid;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     grid-template-rows: 1fr; 
     grid-template-columns: repeat(9 , 128px);
     gap: 10px;
@@ -242,6 +242,56 @@ main{
 }
 
 
+#topDeals{ 
+    margin-top: 20px;
+    max-width: 100%; 
+    background-color: #ffff;
+    padding: 1.5rem;
+    max-height: 350px;
+}
+
+.cards-container{
+    display: grid;
+    justify-content: start;
+    grid-template-columns: repeat(8 , 220px);
+    grid-template-rows: 400px;
+    overflow: auto;
+    gap: 15px;
+    
+}
+
+.cards-container::-webkit-scrollbar{
+    display: none;
+}
+
+.card{
+    padding: 5px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card img{
+    object-fit: contain;
+    height: 150px;
+    width: 150px;
+    transition: all 0.3s;
+}
+
+.card img:hover{
+    transform: scale(1.05);
+}
+
+.card span:last-child{
+    font-weight: 600;
+}
+
+
+
+
+
 
 
 
@@ -277,6 +327,33 @@ main{
     #searchBox{
         display: none;
     }
+
+    #topDeals{
+        max-width: 100%;
+        max-height: max-content;
+    }
+     #topDeals > h2{
+        margin-bottom: 20px;
+     }
+
+    .cards-container{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(8 , 1fr);
+        width: 100%; 
+    }
+
+    .card{
+        flex-direction: row;
+        width: 100%;
+        border-bottom: 2px solid #E0E0E0;
+        padding-bottom: 25px;
+    }
+
+    .card img{
+        height: 3rem;
+        width: 3rem;
+    }
+
 }
 
 @media (max-width : 1200px) {
