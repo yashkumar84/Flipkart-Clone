@@ -244,14 +244,20 @@ main{
 
 #topDeals{ 
     margin-top: 20px;
-    max-width: 100%; 
-    background-color: #ffff;
     padding: 1.5rem;
+    display: flex;
+}
+
+.container{
+    background-color: #ffff;
     max-height: 350px;
+    max-width: 85%;
+    padding: 20px;
 }
 
 .cards-container{
     display: grid;
+    width: 100%;
     justify-content: start;
     grid-template-columns: repeat(8 , 220px);
     grid-template-rows: 400px;
@@ -284,9 +290,80 @@ main{
     transform: scale(1.05);
 }
 
-.card span:last-child{
+.card div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    flex-direction: column;
+}
+
+
+.card div span:last-child{
     font-weight: 600;
 }
+
+
+#topDeals aside{
+    height: 100%;
+    width: 300px;
+    margin: 20px;
+}
+#topDeals aside img{
+    width: 200px;
+}
+
+
+#footer{
+   display: grid;
+   grid-template-columns: repeat(6, 1fr);
+   gap: 30px;
+   background-color: black;
+   color: white; 
+   padding: 30px;
+}
+
+#footer .footer_section {
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+#footer .footer_section h4{
+    margin: 10px 0;
+    font-weight: 200;
+    font-size: 15px;
+    color: grey;
+}
+
+footer a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.social{
+    border-left: 2px solid #333;
+    padding: 0 20px;
+}
+
+.social_icons{
+    margin-top: 10px;
+    gap: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+
+
+.social_icons img{
+    height: 20px;
+    margin: 5px;
+    width: 20px;
+}
+
 
 
 
@@ -329,11 +406,17 @@ main{
     }
 
     #topDeals{
-        max-width: 100%;
-        max-height: max-content;
+        width: 100%;
+        
     }
      #topDeals > h2{
         margin-bottom: 20px;
+     }
+
+     .container{
+        width: 100%;
+        max-height: max-content;
+        
      }
 
     .cards-container{
@@ -347,11 +430,21 @@ main{
         width: 100%;
         border-bottom: 2px solid #E0E0E0;
         padding-bottom: 25px;
+        gap: 30px;
     }
 
     .card img{
         height: 3rem;
         width: 3rem;
+    }
+
+    .card div{
+        align-items: start;
+        flex-direction: column;
+    }
+
+    #footer{
+        display: none;
     }
 
 }
@@ -370,6 +463,25 @@ main{
 
     main{
         margin: 10px 10px;
+    }
+
+    .adv{
+        display: none;
+    }
+
+    .container{
+        max-width: 100%;
+       
+    }
+
+    #footer{
+        grid-template-columns: repeat(3 , 1fr);
+
+    }
+
+    .social{
+        border: none;
+        padding: 0;
     }
 
     /* #category-bar{
