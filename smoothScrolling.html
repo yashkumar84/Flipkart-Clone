@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smooth Scroll</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #0a0a0a;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      #smooth-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        will-change: transform;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        z-index: 100;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      nav a:hover {
+        color: #00d4ff;
+        background: rgba(0, 212, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: bold;
+        padding: 100px 20px;
+        position: relative;
+      }
+
+      #section1 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      #section2 {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+      #section3 {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+      #section4 {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      }
+      #section5 {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      }
+
+      .content-wrapper {
+        text-align: center;
+        z-index: 1;
+      }
+
+      .content-wrapper p {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        opacity: 0.9;
+        font-weight: normal;
+      }
+
+      .floating-card {
+        position: absolute;
+        width: 200px;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .card1 {
+        top: 20%;
+        left: 10%;
+      }
+      .card2 {
+        top: 60%;
+        right: 10%;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a data-scroll="section1">Home</a>
+      <a data-scroll="section2">About</a>
+      <a data-scroll="section3">Services</a>
+      <a data-scroll="section4">Portfolio</a>
+      <a data-scroll="section5">Contact</a>
+    </nav>
+
+    <div id="smooth-wrapper">
+      <section id="section1">
+        <div class="content-wrapper">
+          <div>Ultra Smooth Scrolling</div>
+          <p>Feel the buttery smooth momentum-based scroll</p>
+        </div>
+        <div class="floating-card card1"></div>
+      </section>
+
+      <section id="section2">
+        <div class="content-wrapper">
+          <div>About Us</div>
+          <p>Notice the smooth deceleration and acceleration</p>
+        </div>
+        <div class="floating-card card2"></div>
+      </section>
+
+      <section id="section3">
+        <div class="content-wrapper">
+          <div>Our Services</div>
+          <p>Scroll feels natural with easing functions</p>
+        </div>
+        <div class="floating-card card1"></div>
+      </section>
+
+      <section id="section4">
+        <div class="content-wrapper">
+          <div>Portfolio</div>
+          <p>Custom-built smooth scroll engine</p>
+        </div>
+        <div class="floating-card card2"></div>
+      </section>
+
+      <section id="section5">
+        <div class="content-wrapper">
+          <div>Get In Touch</div>
+          <p>Premium scrolling experience achieved!</p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const wrapper = document.getElementById("smooth-wrapper");
+      let current = 0;
+      let target = 0;
+      const ease = 0.075;
+
+      // Set body height for scrollbar
+      function setHeight() {
+        document.body.style.height = wrapper.offsetHeight + "px";
+      }
+      setHeight();
+
+      // Update target on scroll
+      window.addEventListener("scroll", () => {
+        target = window.scrollY;
+      });
+
+      // Resize handler
+      window.addEventListener("resize", setHeight);
+
+      // Smooth scroll animation
+      function animate() {
+        current += (target - current) * ease;
+        wrapper.style.transform = `translate3d(0, -${current}px, 0)`;
+
+        // Parallax effect on cards
+        document.querySelectorAll(".floating-card").forEach((card, i) => {
+          const speed = i % 2 === 0 ? 0.3 : 0.5;
+          card.style.transform = `translate3d(0, ${current * speed}px, 0)`;
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // Navigation click handler
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const section = document.getElementById(link.dataset.scroll);
+          if (section) {
+            window.scrollTo({ top: section.offsetTop, behavior: "auto" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
